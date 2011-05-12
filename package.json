@@ -1,0 +1,16 @@
+{
+  "author": "Duncan Beevers <duncan@dweebd.com>",
+  "name": "ContextChain",
+  "description": "Chain calls to CanvasRenderingContext2D",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "= 0.4.7"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vows": "= 0.5.8"
+  }
+}
