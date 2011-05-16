@@ -31,6 +31,10 @@ vows.describe('A Context Chain').addBatch({
 
       scenario.chain.strokeStyle(style);
       assert.strictEqual(scenario.context.strokeStyle, style);
+    },
+    'should implement compositeSourceOver': function(scenario) {
+      scenario.chain.compositeSourceOver();
+      assert.strictEqual(scenario.context.globalCompositeOperation, 'source-over');
     }
   }
 }).run();
