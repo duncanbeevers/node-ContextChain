@@ -54,6 +54,33 @@ vows.describe('A Context Chain').addBatch({
       assert.strictEqual(gradient, returnValue);
       assert.strictEqual(gradient.decorated, true);
     }
+  },
+  'when initialized with no context': {
+    topic: function() {
+      var context;
+      return {
+        context: context,
+        chain: new ContextChain(context)
+      };
+    },
+    'should not throw on arc': function(scenario) {
+      assert.doesNotThrow(scenario.chain.arc.bind(scenario.chain, 0, 0, 10, 0, 90, false));
+    },
+    'should not throw on strokeStyle': function(scenario) {
+      assert.doesNotThrow(function() { scenario.chain.strokeStyle('#fff'); });
+    },
+    'should not throw on composite source over': function(scenario) {
+      assert.doesNotThrow(function() { scenario.chain.compositeSourceOver(); });
+    },
+    'should not throw on terminator': function(scenario) {
+      assert.doesNotThrow(function() { scenario.chain.createLinearGradient(1, 2, 3, 4); });
+    },
+    'should not throw on terminator with decorator': function(scenario) {
+      var hasBeenRun = false;
+      function fn() { hasBeenRun = true; }
+      assert.doesNotThrow(function() { scenario.chain.createLinearGradient(1, 2, 3, 4, fn); });
+      assert.strictEqual(hasBeenRun, false);
+    }
   }
 }).run();
 
