@@ -48,6 +48,20 @@ vows.describe('A Context Chain').addBatch({
       assert.strictEqual(actualArgs[2], 3);
       assert.strictEqual(actualArgs[3], 4);
       assert.strictEqual(gradient, returnValue);
+    },
+    'should decorate result of terminator createLinearGradient': function(scenario) {
+      var actualArgs, returnValue = {};
+      scenario.context.createLinearGradient = function() {
+        actualArgs = arguments; return returnValue;
+      };
+      var gradient = scenario.chain.createLinearGradient(1, 2, 3, 4, function(g) { g.decorated = true; });
+      assert.strictEqual(actualArgs.length, 4);
+      assert.strictEqual(actualArgs[0], 1);
+      assert.strictEqual(actualArgs[1], 2);
+      assert.strictEqual(actualArgs[2], 3);
+      assert.strictEqual(actualArgs[3], 4);
+      assert.strictEqual(gradient, returnValue);
+      assert.strictEqual(gradient.decorated, true);
     }
   }
 }).run();
