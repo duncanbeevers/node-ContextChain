@@ -35,6 +35,19 @@ vows.describe('A Context Chain').addBatch({
     'should implement compositeSourceOver': function(scenario) {
       scenario.chain.compositeSourceOver();
       assert.strictEqual(scenario.context.globalCompositeOperation, 'source-over');
+    },
+    'should implement terminator createLinearGradient': function(scenario) {
+      var actualArgs, returnValue = {};
+      scenario.context.createLinearGradient = function() {
+        actualArgs = arguments; return returnValue;
+      };
+      var gradient = scenario.chain.createLinearGradient(1, 2, 3, 4);
+      assert.strictEqual(actualArgs.length, 4);
+      assert.strictEqual(actualArgs[0], 1);
+      assert.strictEqual(actualArgs[1], 2);
+      assert.strictEqual(actualArgs[2], 3);
+      assert.strictEqual(actualArgs[3], 4);
+      assert.strictEqual(gradient, returnValue);
     }
   }
 }).run();
